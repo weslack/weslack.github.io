@@ -1,0 +1,171 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.82.1"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Iotvillage CTF Network Scan&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.ef607fd3ec4a0f4af353d3e9b3a1dc7611964c7c8183a173506541206fada2e3848afb5f470cffc866df3a3cd534c4ea.css integrity=sha384-72B/0+xKD0rzU9Pps6HcdhGWTHyBg6FzUGVBIG+touOEivtfRwz/yGbfOjzVNMTq><meta name=twitter:card content="summary"><meta name=twitter:title content="Iotvillage CTF Network Scan"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Iotvillage CTF Network Scan</h1><p class="article date">Sat, 24 Apr 2021 10:14:52</p></section><article class="article markdown-body"><p>Running tried and true nmap.</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>sudo nmap 192.168.10.0/24
+</code></pre></div><h2 id=output>Output</h2><pre><code>Nmap scan report for 192.168.10.172
+Host is up (0.095s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+80/tcp open  http
+
+Nmap scan report for 192.168.10.173
+Host is up (0.096s latency).
+Not shown: 994 closed ports
+PORT     STATE SERVICE
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+548/tcp  open  afp
+5000/tcp open  upnp
+5001/tcp open  commplex-link
+8383/tcp open  m2mservices
+
+Nmap scan report for 192.168.10.174
+Host is up (0.093s latency).
+Not shown: 991 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+5100/tcp open  admd
+5101/tcp open  admdog
+5102/tcp open  admeng
+5810/tcp open  unknown
+5900/tcp open  vnc
+
+Nmap scan report for 192.168.10.176
+Host is up (0.094s latency).
+Not shown: 998 closed ports
+PORT      STATE SERVICE
+80/tcp    open  http
+49152/tcp open  unknown
+
+Nmap scan report for 192.168.10.177
+Host is up (0.094s latency).
+Not shown: 998 closed ports
+PORT    STATE SERVICE
+80/tcp  open  http
+443/tcp open  https
+
+Nmap scan report for 192.168.10.179
+Host is up (0.095s latency).
+Not shown: 993 closed ports
+PORT      STATE SERVICE
+80/tcp    open  http
+139/tcp   open  netbios-ssn
+443/tcp   open  https
+445/tcp   open  microsoft-ds
+548/tcp   open  afp
+8200/tcp  open  trivnet1
+10000/tcp open  snet-sensor-mgmt
+
+Nmap scan report for 192.168.10.180
+Host is up (0.094s latency).
+Not shown: 991 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+80/tcp   open  http
+139/tcp  open  netbios-ssn
+443/tcp  open  https
+445/tcp  open  microsoft-ds
+631/tcp  open  ipp
+8082/tcp open  blackice-alerts
+9001/tcp open  tor-orport
+
+Nmap scan report for 192.168.10.181
+Host is up (0.094s latency).
+Not shown: 983 closed ports
+PORT      STATE SERVICE
+21/tcp    open  ftp
+22/tcp    open  ssh
+80/tcp    open  http
+111/tcp   open  rpcbind
+139/tcp   open  netbios-ssn
+443/tcp   open  https
+445/tcp   open  microsoft-ds
+548/tcp   open  afp
+631/tcp   open  ipp
+873/tcp   open  rsync
+2049/tcp  open  nfs
+3689/tcp  open  rendezvous
+8080/tcp  open  http-proxy
+8081/tcp  open  blackice-icecap
+8200/tcp  open  trivnet1
+30000/tcp open  ndmps
+49152/tcp open  unknown
+
+Nmap scan report for 192.168.10.182
+Host is up (0.096s latency).
+Not shown: 986 closed ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+5100/tcp  open  admd
+5101/tcp  open  admdog
+5102/tcp  open  admeng
+5560/tcp  open  isqlplus
+5800/tcp  open  vnc-http
+5810/tcp  open  unknown
+5900/tcp  open  vnc
+6000/tcp  open  X11
+6100/tcp  open  synchronet-db
+20000/tcp open  dnp
+
+Nmap scan report for 192.168.10.183
+Host is up (0.096s latency).
+Not shown: 992 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+443/tcp  open  https
+445/tcp  open  microsoft-ds
+548/tcp  open  afp
+631/tcp  open  ipp
+9876/tcp open  sd
+
+Nmap scan report for 192.168.10.184
+Host is up (0.094s latency).
+Not shown: 997 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+53/tcp open  domain
+80/tcp open  http
+
+Nmap scan report for 192.168.10.187
+Host is up (0.096s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+80/tcp open  http
+
+Nmap scan report for 192.168.10.193
+Host is up (0.095s latency).
+Not shown: 996 closed ports
+PORT    STATE SERVICE
+21/tcp  open  ftp
+22/tcp  open  ssh
+80/tcp  open  http
+443/tcp open  https
+
+Nmap scan report for 192.168.10.208
+Host is up (0.093s latency).
+Not shown: 992 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+541/tcp  open   uucp-rlogin
+8000/tcp closed http-alt
+8009/tcp open   ajp13
+8010/tcp open   xmpp
+
+Nmap scan report for 192.168.10.209
+Host is up (0.093s latency).
+Not shown: 998 closed ports
+PORT    STATE SERVICE
+80/tcp  open  http
+443/tcp open  https
+</code></pre></article><section class="article labels"><a class=category href=/categories/iotvillage/>IoTVillage</a><a class=tag href=/tags/nmap/>nmap</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/mosquitto-2/><span class="iconfont icon-article"></span>Mosquitto Flag 2</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
