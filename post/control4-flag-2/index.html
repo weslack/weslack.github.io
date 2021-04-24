@@ -1,0 +1,54 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.82.1"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Control4 Flag 2&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.ef607fd3ec4a0f4af353d3e9b3a1dc7611964c7c8183a173506541206fada2e3848afb5f470cffc866df3a3cd534c4ea.css integrity=sha384-72B/0+xKD0rzU9Pps6HcdhGWTHyBg6FzUGVBIG+touOEivtfRwz/yGbfOjzVNMTq><meta name=twitter:card content="summary"><meta name=twitter:title content="Control4 Flag 2"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Control4 Flag 2</h1><p class="article date">Sat, 24 Apr 2021 12:45:27</p></section><article class="article markdown-body"><h1 id=challenge>Challenge</h1><blockquote><p>Submit the contents of flag.txt, found in USB storage on the device.</p></blockquote><h1 id=device>Device</h1><p>Control4 Device</p><p>Location: 192.168.10.174</p><p>Port: A bunch</p><p>Exploit: Default SSH credentials</p><h1 id=getting-the-flag>Getting the flag</h1><p>Look through USB devices. didn&rsquo;t find anything.</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>~# <span class=nb>cd</span> /mnt/media/usb/
+/mnt/internal/usb# ls
+</code></pre></div><p>Looking for USB devices</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>~# dmesg <span class=p>|</span> grep usb 
+&lt;6&gt;<span class=o>[</span>42949373.260000<span class=o>]</span> usbcore: registered new interface driver usbfs
+&lt;6&gt;<span class=o>[</span>42949373.260000<span class=o>]</span> usbcore: registered new interface driver hub
+&lt;6&gt;<span class=o>[</span>42949373.260000<span class=o>]</span> usbcore: registered new device driver usb
+&lt;6&gt;<span class=o>[</span>42949373.280000<span class=o>]</span> musb_hdrc: version 6.0, cppi-dma, host, <span class=nv>debug</span><span class=o>=</span><span class=m>0</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: <span class=nv>ConfigData</span><span class=o>=</span>0x06 <span class=o>(</span>UTMI-8, dyn FIFOs, SoftConn<span class=o>)</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: MHDRC RTL version 1.300 
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: setup fifo_mode <span class=m>2</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: 7/9 max ep, 2624/4096 memory
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 0shared, max <span class=m>64</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 1tx, max <span class=m>512</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 1rx, max <span class=m>512</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 2tx, max <span class=m>512</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 2rx, max <span class=m>512</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 3shared, max <span class=m>256</span>
+&lt;7&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: hw_ep 4shared, max <span class=m>256</span>
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc: USB Host mode controller at <span class=m>90008000</span> using DMA, IRQ <span class=m>12</span>
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc musb_hdrc: MUSB HDRC host driver
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> musb_hdrc musb_hdrc: new USB bus registered, assigned bus number <span class=m>1</span>
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> usb usb1: configuration <span class=c1>#1 chosen from 1 choice</span>
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> usb usb1: New USB device found, <span class=nv>idVendor</span><span class=o>=</span>1d6b, <span class=nv>idProduct</span><span class=o>=</span><span class=m>0002</span>
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> usb usb1: New USB device strings: <span class=nv>Mfr</span><span class=o>=</span>3, <span class=nv>Product</span><span class=o>=</span>2, <span class=nv>SerialNumber</span><span class=o>=</span><span class=m>1</span>
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> usb usb1: Product: MUSB HDRC host driver
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> usb usb1: Manufacturer: Linux 2.6.28.10-rc8.77 musb-hcd
+&lt;6&gt;<span class=o>[</span>42949373.300000<span class=o>]</span> usb usb1: SerialNumber: musb_hdrc
+&lt;6&gt;<span class=o>[</span>42949375.180000<span class=o>]</span> usbcore: registered new interface driver usb-storage
+&lt;6&gt;<span class=o>[</span>42949375.200000<span class=o>]</span> usbcore: registered new interface driver libusual
+&lt;6&gt;<span class=o>[</span>42949441.010000<span class=o>]</span> usbcore: registered new interface driver zd1211b
+</code></pre></div><p>Looking at the mounted devices</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>/dev# mount
+/dev/root on / <span class=nb>type</span> jffs2 <span class=o>(</span>ro<span class=o>)</span>
+/devfs on /dev <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>16k<span class=o>)</span>
+/proc on /proc <span class=nb>type</span> proc <span class=o>(</span>rw<span class=o>)</span>
+/tmp on /mnt/ram/tmp <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>16384k<span class=o>)</span>
+/var on /mnt/ram/var <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>32768k<span class=o>)</span>
+/dev/mtdblock4 on /mnt/jffs2 <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
+/dev/mtdblock5 on /mnt/internal <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
+/dev/mtdblock10 on /mnt/persistent <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
+none on /proc/bus/usb <span class=nb>type</span> usbfs <span class=o>(</span>rw<span class=o>)</span>
+/sysfs on /sys <span class=nb>type</span> sysfs <span class=o>(</span>rw<span class=o>)</span>
+none on /dev/pts <span class=nb>type</span> devpts <span class=o>(</span>rw,mode<span class=o>=</span>600<span class=o>)</span>
+/dev/mmcblk0p1 on /mnt/internal/packages <span class=nb>type</span> ext3 <span class=o>(</span>rw,errors<span class=o>=</span><span class=k>continue</span>,data<span class=o>=</span>ordered<span class=o>)</span>
+/dev/mmcblk0p2 on /mnt/sd <span class=nb>type</span> ext3 <span class=o>(</span>rw,errors<span class=o>=</span><span class=k>continue</span>,data<span class=o>=</span>ordered<span class=o>)</span>
+/dev/mtdblock5 on /mnt/internal/www/flash <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
+/dev/mtdblock5 on /mnt/internal/www/flash <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
+/dev/mtdblock5 on /mnt/internal/usb <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
+/tmp on /mnt/ram/tmp <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>16384k<span class=o>)</span>
+/var on /mnt/ram/var <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>32768k<span class=o>)</span>
+</code></pre></div><p>We&rsquo;ve got a usb mounted as <code>/mnt/internal/usb</code>.</p><p>Take a look in there, and find nothing</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>~# ls /mnt/internal/usb/
+</code></pre></div><p>Run <code>find</code> to find flags</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>$ find /mnt/internal/www/ -name <span class=s2>&#34;Flag.txt&#34;</span>
+/mnt/internal/www/Flag.txt
+</code></pre></div><p><code>cat</code> and submit</p></article><section class="article labels"><a class=category href=/categories/iotvillage/>IotVillage</a><a class=tag href=/tags/control4/>Control4</a><a class=tag href=/tags/default-credentials/>Default Credentials</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/firmware-analysis/><span class="iconfont icon-article"></span>Firmware Analysis</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>

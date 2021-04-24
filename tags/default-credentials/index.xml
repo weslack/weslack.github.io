@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Default Credentials on weslack</title><link>/tags/default-credentials/</link><description>Recent content in Default Credentials on weslack</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. &lt;a href="https://weslack.team/LICENSE.txt">Unlicense&lt;/a></copyright><lastBuildDate>Sat, 24 Apr 2021 12:45:27 -0700</lastBuildDate><atom:link href="/tags/default-credentials/index.xml" rel="self" type="application/rss+xml"/><item><title>Control4 Flag 2</title><link>/post/control4-flag-2/</link><pubDate>Sat, 24 Apr 2021 12:45:27 -0700</pubDate><guid>/post/control4-flag-2/</guid><description>Challenge Submit the contents of flag.txt, found in USB storage on the device.
+Device Control4 Device
+Location: 192.168.10.174
+Port: A bunch
+Exploit: Default SSH credentials
+Getting the flag Look through USB devices. didn&amp;rsquo;t find anything.
+~# cd /mnt/media/usb/ /mnt/internal/usb# ls Looking for USB devices
+~# dmesg | grep usb &amp;lt;6&amp;gt;[42949373.260000] usbcore: registered new interface driver usbfs &amp;lt;6&amp;gt;[42949373.260000] usbcore: registered new interface driver hub &amp;lt;6&amp;gt;[42949373.260000] usbcore: registered new device driver usb &amp;lt;6&amp;gt;[42949373.</description></item></channel></rss>
