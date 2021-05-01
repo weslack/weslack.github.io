@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>pihole on weslack</title><link>/tags/pihole/</link><description>Recent content in pihole on weslack</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. &lt;a href="https://weslack.team/LICENSE.txt">Unlicense&lt;/a></copyright><lastBuildDate>Sat, 01 May 2021 14:01:03 -0700</lastBuildDate><atom:link href="/tags/pihole/index.xml" rel="self" type="application/rss+xml"/><item><title>Pihole</title><link>/post/pihole/</link><pubDate>Sat, 01 May 2021 14:01:03 -0700</pubDate><guid>/post/pihole/</guid><description>Challenge Submit the contents of flag.txt, found in USB storage on the device.
+Device Location: 192.168.10.172
+Ports: 22, 80
+Admin interface: https://192.168.10.172/admin
+Possible Exploit https://frichetten.com/blog/cve-2020-11108-pihole-rce/</description></item></channel></rss>
