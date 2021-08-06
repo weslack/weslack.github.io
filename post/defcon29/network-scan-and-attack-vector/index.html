@@ -4,13 +4,13 @@
 <meta name=twitter:title content="Network Scan and Attack Vector"><body><section id=header>
 <div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
 <span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header">
-<h1 class="article title">Network Scan and Attack Vector</h1><p class="article date">Fri, 06 Aug 2021 18:49:30</p></section><article class="article markdown-body"><h2 id=unknown-device>Unknown Device</h2>
+<h1 class="article title">Network Scan and Attack Vector</h1><p class="article date">Fri, 06 Aug 2021 19:21:36</p></section><article class="article markdown-body"><h2 id=unknown-device>Unknown Device</h2>
 <h3 id=url-http192168101http192168101>URL: <a href=http://192.168.10.1 target=_blank>http://192.168.10.1</a></h3>
 <h3 id=path>Path:</h3>
 <ul>
 <li>192.168.10.1</li>
 </ul>
-<h3 id=ports>Ports</h3>
+<h3 id=ports>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -35,6 +35,7 @@
 <ul>
 <li>192.168.10.137</li>
 </ul>
+<h3 id=ports-1>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -49,16 +50,45 @@
 <td>closed</td>
 <td>http</td>
 </tr>
+<tr>
+<td>139/tcp</td>
+<td>open</td>
+<td>netbios-ssn</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>open</td>
+<td>microsoft-ds</td>
+</tr>
+<tr>
+<td>548/tcp</td>
+<td>open</td>
+<td>afp</td>
+</tr>
+<tr>
+<td>5000/tcp</td>
+<td>open</td>
+<td>upnp</td>
+</tr>
+<tr>
+<td>5001/tcp</td>
+<td>open</td>
+<td>commplex-link</td>
+</tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-1>Pwnd: False</h3>
 <h3 id=notes-1>Notes:</h3>
+<ul>
+<li>Not shown: 995 closed ports</li>
+</ul>
 <h2 id=unknown-device-2>Unknown Device</h2>
 <h3 id=url-http19216810143http19216810143>URL: <a href=http://192.168.10.143 target=_blank>http://192.168.10.143</a></h3>
 <h3 id=path-2>Path:</h3>
 <ul>
 <li>192.168.10.143</li>
 </ul>
+<h3 id=ports-2>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -73,16 +103,25 @@
 <td>filtered</td>
 <td>http</td>
 </tr>
+<tr>
+<td>8080/tcp</td>
+<td>open</td>
+<td>http-proxy</td>
+</tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-2>Pwnd: False</h3>
 <h3 id=notes-2>Notes:</h3>
+<ul>
+<li>Not shown: 999 filtered ports</li>
+</ul>
 <h2 id=unknown-device-3>Unknown Device</h2>
 <h3 id=url-http19216810144http19216810144>URL: <a href=http://192.168.10.144 target=_blank>http://192.168.10.144</a></h3>
 <h3 id=path-3>Path:</h3>
 <ul>
 <li>192.168.10.144</li>
 </ul>
+<h3 id=ports-3>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -93,20 +132,64 @@
 </thead>
 <tbody>
 <tr>
+<td>21/tcp</td>
+<td>open</td>
+<td>ftp</td>
+</tr>
+<tr>
+<td>22/tcp</td>
+<td>open</td>
+<td>ssh</td>
+</tr>
+<tr>
 <td>80/tcp</td>
 <td>open</td>
 <td>http</td>
+</tr>
+<tr>
+<td>139/tcp</td>
+<td>open</td>
+<td>netbios-ssn</td>
+</tr>
+<tr>
+<td>443/tcp</td>
+<td>open</td>
+<td>https</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>open</td>
+<td>microsoft-ds</td>
+</tr>
+<tr>
+<td>631/tcp</td>
+<td>open</td>
+<td>ipp</td>
+</tr>
+<tr>
+<td>8082/tcp</td>
+<td>open</td>
+<td>blackice-alerts</td>
+</tr>
+<tr>
+<td>9001/tcp</td>
+<td>open</td>
+<td>tor-orport</td>
 </tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-3>Pwnd: False</h3>
 <h3 id=notes-3>Notes:</h3>
+<ul>
+<li>Not shown: 991 closed ports</li>
+</ul>
 <h2 id=qnap-nas1f6d5a>QNAP NAS1F6D5A</h2>
 <h3 id=url-http19216810145http19216810145>URL: <a href=http://192.168.10.145 target=_blank>http://192.168.10.145</a></h3>
 <h3 id=path-4>Path:</h3>
 <ul>
 <li>192.168.10.145</li>
 </ul>
+<h3 id=ports-4>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -117,20 +200,109 @@
 </thead>
 <tbody>
 <tr>
+<td>21/tcp</td>
+<td>open</td>
+<td>ftp</td>
+</tr>
+<tr>
+<td>22/tcp</td>
+<td>open</td>
+<td>ssh</td>
+</tr>
+<tr>
 <td>80/tcp</td>
 <td>open</td>
 <td>http</td>
+</tr>
+<tr>
+<td>111/tcp</td>
+<td>open</td>
+<td>rpcbind</td>
+</tr>
+<tr>
+<td>139/tcp</td>
+<td>open</td>
+<td>netbios-ssn</td>
+</tr>
+<tr>
+<td>443/tcp</td>
+<td>open</td>
+<td>https</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>open</td>
+<td>microsoft-ds</td>
+</tr>
+<tr>
+<td>548/tcp</td>
+<td>open</td>
+<td>afp</td>
+</tr>
+<tr>
+<td>631/tcp</td>
+<td>open</td>
+<td>ipp</td>
+</tr>
+<tr>
+<td>873/tcp</td>
+<td>open</td>
+<td>rsync</td>
+</tr>
+<tr>
+<td>2049/tcp</td>
+<td>open</td>
+<td>nfs</td>
+</tr>
+<tr>
+<td>3689/tcp</td>
+<td>open</td>
+<td>rendezvous</td>
+</tr>
+<tr>
+<td>8080/tcp</td>
+<td>open</td>
+<td>http-proxy</td>
+</tr>
+<tr>
+<td>8081/tcp</td>
+<td>open</td>
+<td>blackice-icecap</td>
+</tr>
+<tr>
+<td>8200/tcp</td>
+<td>open</td>
+<td>trivnet1</td>
+</tr>
+<tr>
+<td>30000/tcp</td>
+<td>open</td>
+<td>ndmps</td>
+</tr>
+<tr>
+<td>49152/tcp</td>
+<td>open</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td>49153/tcp</td>
+<td>open</td>
+<td>unknown</td>
 </tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-4>Pwnd: False</h3>
 <h3 id=notes-4>Notes:</h3>
+<ul>
+<li>Not shown: 982 closed ports</li>
+</ul>
 <h2 id=readynas>ReadyNAS</h2>
 <h3 id=url-http19216810146http19216810146>URL: <a href=http://192.168.10.146 target=_blank>http://192.168.10.146</a></h3>
 <h3 id=path-5>Path:</h3>
 <ul>
 <li>192.168.10.146</li>
 </ul>
+<h3 id=ports-5>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -145,16 +317,50 @@
 <td>open</td>
 <td>http</td>
 </tr>
+<tr>
+<td>139/tcp</td>
+<td>open</td>
+<td>netbios-ssn</td>
+</tr>
+<tr>
+<td>443/tcp</td>
+<td>open</td>
+<td>https</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>open</td>
+<td>microsoft-ds</td>
+</tr>
+<tr>
+<td>548/tcp</td>
+<td>open</td>
+<td>afp</td>
+</tr>
+<tr>
+<td>8200/tcp</td>
+<td>open</td>
+<td>trivnet1</td>
+</tr>
+<tr>
+<td>10000/tcp</td>
+<td>open</td>
+<td>snet-sensor-mgmt</td>
+</tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-5>Pwnd: False</h3>
 <h3 id=notes-5>Notes:</h3>
+<ul>
+<li>Not shown: 993 closed ports</li>
+</ul>
 <h2 id=seagate-nas>Seagate NAS</h2>
 <h3 id=url-http19216810147http19216810147>URL: <a href=http://192.168.10.147 target=_blank>http://192.168.10.147</a></h3>
 <h3 id=path-6>Path:</h3>
 <ul>
 <li>192.168.10.147</li>
 </ul>
+<h3 id=ports-6>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -169,16 +375,55 @@
 <td>open</td>
 <td>http</td>
 </tr>
+<tr>
+<td>111/tcp</td>
+<td>open</td>
+<td>rpcbind</td>
+</tr>
+<tr>
+<td>139/tcp</td>
+<td>open</td>
+<td>netbios-ssn</td>
+</tr>
+<tr>
+<td>443/tcp</td>
+<td>open</td>
+<td>https</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>open</td>
+<td>microsoft-ds</td>
+</tr>
+<tr>
+<td>548/tcp</td>
+<td>open</td>
+<td>afp</td>
+</tr>
+<tr>
+<td>631/tcp</td>
+<td>open</td>
+<td>ipp</td>
+</tr>
+<tr>
+<td>9876/tcp</td>
+<td>open</td>
+<td>sd</td>
+</tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-6>Pwnd: False</h3>
 <h3 id=notes-6>Notes:</h3>
+<ul>
+<li>Not shown: 992 closed ports</li>
+</ul>
 <h2 id=vera-something>Vera something</h2>
 <h3 id=url-http19216810148http19216810148>URL: <a href=http://192.168.10.148 target=_blank>http://192.168.10.148</a></h3>
 <h3 id=path-7>Path:</h3>
 <ul>
 <li>192.168.10.148</li>
 </ul>
+<h3 id=ports-7>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -189,20 +434,79 @@
 </thead>
 <tbody>
 <tr>
+<td>22/tcp</td>
+<td>open</td>
+<td>ssh</td>
+</tr>
+<tr>
+<td>53/tcp</td>
+<td>open</td>
+<td>domain</td>
+</tr>
+<tr>
 <td>80/tcp</td>
 <td>open</td>
 <td>http</td>
+</tr>
+<tr>
+<td>544/tcp</td>
+<td>filtered</td>
+<td>kshell</td>
+</tr>
+<tr>
+<td>888/tcp</td>
+<td>filtered</td>
+<td>accessbuilder</td>
+</tr>
+<tr>
+<td>1131/tcp</td>
+<td>filtered</td>
+<td>caspssl</td>
+</tr>
+<tr>
+<td>1719/tcp</td>
+<td>filtered</td>
+<td>h323gatestat</td>
+</tr>
+<tr>
+<td>3878/tcp</td>
+<td>filtered</td>
+<td>fotogcad</td>
+</tr>
+<tr>
+<td>3945/tcp</td>
+<td>filtered</td>
+<td>emcads</td>
+</tr>
+<tr>
+<td>8045/tcp</td>
+<td>filtered</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td>10010/tcp</td>
+<td>filtered</td>
+<td>rxapi</td>
+</tr>
+<tr>
+<td>32781/tcp</td>
+<td>filtered</td>
+<td>unknown</td>
 </tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-7>Pwnd: False</h3>
 <h3 id=notes-7>Notes:</h3>
+<ul>
+<li>Not shown: 988 closed ports</li>
+</ul>
 <h2 id=control4>Control4</h2>
 <h3 id=url-http19216810174http19216810174>URL: <a href=http://192.168.10.174 target=_blank>http://192.168.10.174</a></h3>
 <h3 id=path-8>Path:</h3>
 <ul>
 <li>192.168.10.174</li>
 </ul>
+<h3 id=ports-8>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -213,20 +517,64 @@
 </thead>
 <tbody>
 <tr>
+<td>22/tcp</td>
+<td>open</td>
+<td>ssh</td>
+</tr>
+<tr>
 <td>80/tcp</td>
 <td>open</td>
 <td>http</td>
+</tr>
+<tr>
+<td>139/tcp</td>
+<td>open</td>
+<td>netbios-ssn</td>
+</tr>
+<tr>
+<td>445/tcp</td>
+<td>open</td>
+<td>microsoft-ds</td>
+</tr>
+<tr>
+<td>5100/tcp</td>
+<td>open</td>
+<td>admd</td>
+</tr>
+<tr>
+<td>5101/tcp</td>
+<td>open</td>
+<td>admdog</td>
+</tr>
+<tr>
+<td>5102/tcp</td>
+<td>open</td>
+<td>admeng</td>
+</tr>
+<tr>
+<td>5810/tcp</td>
+<td>open</td>
+<td>unknown</td>
+</tr>
+<tr>
+<td>5900/tcp</td>
+<td>open</td>
+<td>vnc</td>
 </tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-8>Pwnd: False</h3>
 <h3 id=notes-8>Notes:</h3>
+<ul>
+<li>Not shown: 991 closed ports</li>
+</ul>
 <h2 id=clicker-thing>Clicker thing</h2>
 <h3 id=url-http19216810187http19216810187>URL: <a href=http://192.168.10.187 target=_blank>http://192.168.10.187</a></h3>
 <h3 id=path-9>Path:</h3>
 <ul>
 <li>192.168.10.187</li>
 </ul>
+<h3 id=ports-9>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -245,12 +593,16 @@
 </table>
 <h3 id=pwnd-false-9>Pwnd: False</h3>
 <h3 id=notes-9>Notes:</h3>
+<ul>
+<li>Not shown: 999 closed ports</li>
+</ul>
 <h2 id=nuuo-nvr>Nuuo NVR</h2>
 <h3 id=url-http19216810193http19216810193>URL: <a href=http://192.168.10.193 target=_blank>http://192.168.10.193</a></h3>
 <h3 id=path-10>Path:</h3>
 <ul>
 <li>192.168.10.193</li>
 </ul>
+<h3 id=ports-10>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -261,20 +613,39 @@
 </thead>
 <tbody>
 <tr>
+<td>21/tcp</td>
+<td>open</td>
+<td>ftp</td>
+</tr>
+<tr>
+<td>22/tcp</td>
+<td>open</td>
+<td>ssh</td>
+</tr>
+<tr>
 <td>80/tcp</td>
 <td>open</td>
 <td>http</td>
+</tr>
+<tr>
+<td>443/tcp</td>
+<td>open</td>
+<td>https</td>
 </tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-10>Pwnd: False</h3>
 <h3 id=notes-10>Notes:</h3>
+<ul>
+<li>Not shown: 996 closed ports</li>
+</ul>
 <h2 id=dcs-930lb1>DCS-930LB1</h2>
 <h3 id=url-http19216810209http19216810209>URL: <a href=http://192.168.10.209 target=_blank>http://192.168.10.209</a></h3>
 <h3 id=path-11>Path:</h3>
 <ul>
 <li>192.168.10.209</li>
 </ul>
+<h3 id=ports-11>Ports:</h3>
 <table>
 <thead>
 <tr>
@@ -289,10 +660,18 @@
 <td>open</td>
 <td>http</td>
 </tr>
+<tr>
+<td>443/tcp</td>
+<td>open</td>
+<td>https</td>
+</tr>
 </tbody>
 </table>
 <h3 id=pwnd-false-11>Pwnd: False</h3>
 <h3 id=notes-11>Notes:</h3>
+<ul>
+<li>Not shown: 998 closed ports</li>
+</ul>
 </article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=category href=/categories/defcon29/>defcon29</a><a class=tag href=/tags/attack-vector/>Attack Vector</a><a class=tag href=/tags/network-scan/>Network scan</a></section></div>
 <div class="article bottom"><section class="article navigation"><p><a class=link href=/post/creston-airmedia/><span class="iconfont icon-article"></span>Creston Airmedia</a></p></section></div></section><section id=footer><div class=footer-wrap>
 <p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p>
