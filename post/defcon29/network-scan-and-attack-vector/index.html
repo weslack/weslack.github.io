@@ -4,11 +4,11 @@
 <meta name=twitter:title content="Network Scan and Attack Vector"><body><section id=header>
 <div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
 <span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header">
-<h1 class="article title">Network Scan and Attack Vector</h1><p class="article date">Fri, 06 Aug 2021 10:21:29</p></section><article class="article markdown-body"><h2 id=example-device>Example Device</h2>
-<p>url: <a href=http://192.168.10.101/ target=_blank>http://192.168.10.101/</a></p>
-<h3 id=path>Path</h3>
+<h1 class="article title">Network Scan and Attack Vector</h1><p class="article date">Fri, 06 Aug 2021 18:49:30</p></section><article class="article markdown-body"><h2 id=unknown-device>Unknown Device</h2>
+<h3 id=url-http192168101http192168101>URL: <a href=http://192.168.10.1 target=_blank>http://192.168.10.1</a></h3>
+<h3 id=path>Path:</h3>
 <ul>
-<li>127.0.0.0 -> 192.168.10.101</li>
+<li>192.168.10.1</li>
 </ul>
 <h3 id=ports>Ports</h3>
 <table>
@@ -21,15 +21,77 @@
 </thead>
 <tbody>
 <tr>
-<td>21/tcp</td>
-<td>closed</td>
-<td>ftp</td>
+<td>80/tcp</td>
+<td>filtered</td>
+<td>http</td>
 </tr>
+</tbody>
+</table>
+<h3 id=pwnd-false>Pwnd: False</h3>
+<h3 id=notes>Notes:</h3>
+<h2 id=unknown-device-1>Unknown Device</h2>
+<h3 id=url-http19216810137http19216810137>URL: <a href=http://192.168.10.137 target=_blank>http://192.168.10.137</a></h3>
+<h3 id=path-1>Path:</h3>
+<ul>
+<li>192.168.10.137</li>
+</ul>
+<table>
+<thead>
 <tr>
-<td>22/tcp</td>
-<td>closed</td>
-<td>ssh</td>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>closed</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-1>Pwnd: False</h3>
+<h3 id=notes-1>Notes:</h3>
+<h2 id=unknown-device-2>Unknown Device</h2>
+<h3 id=url-http19216810143http19216810143>URL: <a href=http://192.168.10.143 target=_blank>http://192.168.10.143</a></h3>
+<h3 id=path-2>Path:</h3>
+<ul>
+<li>192.168.10.143</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>filtered</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-2>Pwnd: False</h3>
+<h3 id=notes-2>Notes:</h3>
+<h2 id=unknown-device-3>Unknown Device</h2>
+<h3 id=url-http19216810144http19216810144>URL: <a href=http://192.168.10.144 target=_blank>http://192.168.10.144</a></h3>
+<h3 id=path-3>Path:</h3>
+<ul>
+<li>192.168.10.144</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>80/tcp</td>
 <td>open</td>
@@ -37,12 +99,200 @@
 </tr>
 </tbody>
 </table>
-<h3 id=pwnd-false>Pwnd: False</h3>
-<h3 id=notes>Notes:</h3>
+<h3 id=pwnd-false-3>Pwnd: False</h3>
+<h3 id=notes-3>Notes:</h3>
+<h2 id=qnap-nas1f6d5a>QNAP NAS1F6D5A</h2>
+<h3 id=url-http19216810145http19216810145>URL: <a href=http://192.168.10.145 target=_blank>http://192.168.10.145</a></h3>
+<h3 id=path-4>Path:</h3>
 <ul>
-<li>Contains nmap binary</li>
-<li>Other example notes</li>
+<li>192.168.10.145</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-4>Pwnd: False</h3>
+<h3 id=notes-4>Notes:</h3>
+<h2 id=readynas>ReadyNAS</h2>
+<h3 id=url-http19216810146http19216810146>URL: <a href=http://192.168.10.146 target=_blank>http://192.168.10.146</a></h3>
+<h3 id=path-5>Path:</h3>
+<ul>
+<li>192.168.10.146</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-5>Pwnd: False</h3>
+<h3 id=notes-5>Notes:</h3>
+<h2 id=seagate-nas>Seagate NAS</h2>
+<h3 id=url-http19216810147http19216810147>URL: <a href=http://192.168.10.147 target=_blank>http://192.168.10.147</a></h3>
+<h3 id=path-6>Path:</h3>
+<ul>
+<li>192.168.10.147</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-6>Pwnd: False</h3>
+<h3 id=notes-6>Notes:</h3>
+<h2 id=vera-something>Vera something</h2>
+<h3 id=url-http19216810148http19216810148>URL: <a href=http://192.168.10.148 target=_blank>http://192.168.10.148</a></h3>
+<h3 id=path-7>Path:</h3>
+<ul>
+<li>192.168.10.148</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-7>Pwnd: False</h3>
+<h3 id=notes-7>Notes:</h3>
+<h2 id=control4>Control4</h2>
+<h3 id=url-http19216810174http19216810174>URL: <a href=http://192.168.10.174 target=_blank>http://192.168.10.174</a></h3>
+<h3 id=path-8>Path:</h3>
+<ul>
+<li>192.168.10.174</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-8>Pwnd: False</h3>
+<h3 id=notes-8>Notes:</h3>
+<h2 id=clicker-thing>Clicker thing</h2>
+<h3 id=url-http19216810187http19216810187>URL: <a href=http://192.168.10.187 target=_blank>http://192.168.10.187</a></h3>
+<h3 id=path-9>Path:</h3>
+<ul>
+<li>192.168.10.187</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-9>Pwnd: False</h3>
+<h3 id=notes-9>Notes:</h3>
+<h2 id=nuuo-nvr>Nuuo NVR</h2>
+<h3 id=url-http19216810193http19216810193>URL: <a href=http://192.168.10.193 target=_blank>http://192.168.10.193</a></h3>
+<h3 id=path-10>Path:</h3>
+<ul>
+<li>192.168.10.193</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-10>Pwnd: False</h3>
+<h3 id=notes-10>Notes:</h3>
+<h2 id=dcs-930lb1>DCS-930LB1</h2>
+<h3 id=url-http19216810209http19216810209>URL: <a href=http://192.168.10.209 target=_blank>http://192.168.10.209</a></h3>
+<h3 id=path-11>Path:</h3>
+<ul>
+<li>192.168.10.209</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>PORT</th>
+<th>STATE</th>
+<th>SERVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>80/tcp</td>
+<td>open</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+<h3 id=pwnd-false-11>Pwnd: False</h3>
+<h3 id=notes-11>Notes:</h3>
 </article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=category href=/categories/defcon29/>defcon29</a><a class=tag href=/tags/attack-vector/>Attack Vector</a><a class=tag href=/tags/network-scan/>Network scan</a></section></div>
 <div class="article bottom"><section class="article navigation"><p><a class=link href=/post/creston-airmedia/><span class="iconfont icon-article"></span>Creston Airmedia</a></p></section></div></section><section id=footer><div class=footer-wrap>
 <p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p>
