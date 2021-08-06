@@ -1,7 +1,24 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.83.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Control4 Flag 2&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.5c1ea3b7fda332bb26a6e796e568357472f1c94f2dfd03a45d32c45276f3bca768b134a0b11696b3e3b9f1f7f773fe2a.css integrity=sha384-XB6jt/2jMrsmpueW5Wg1dHLxyU8t/QOkXTLEUnbzvKdosTSgsRaWs+O58ff3c/4q><meta name=twitter:card content="summary"><meta name=twitter:title content="Control4 Flag 2"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
-<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Control4 Flag 2</h1><p class="article date">Sat, 24 Apr 2021 12:45:27</p></section><article class="article markdown-body"><h1 id=challenge>Challenge</h1><blockquote><p>Submit the contents of flag.txt, found in USB storage on the device.</p></blockquote><h1 id=device>Device</h1><p>Control4 Device</p><p>Location: 192.168.10.174</p><p>Port: A bunch</p><p>Exploit: Default SSH credentials</p><h1 id=getting-the-flag>Getting the flag</h1><p>Look through USB devices. didn&rsquo;t find anything.</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>~# <span class=nb>cd</span> /mnt/media/usb/
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.87.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name=color-scheme content="light dark">
+<meta name=supported-color-schemes content="light dark"><title>Control4 Flag 2&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.5c1ea3b7fda332bb26a6e796e568357472f1c94f2dfd03a45d32c45276f3bca768b134a0b11696b3e3b9f1f7f773fe2a.css integrity=sha384-XB6jt/2jMrsmpueW5Wg1dHLxyU8t/QOkXTLEUnbzvKdosTSgsRaWs+O58ff3c/4q><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Control4 Flag 2"><body><section id=header>
+<div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header">
+<h1 class="article title">Control4 Flag 2</h1><p class="article date">Sat, 24 Apr 2021 12:45:27</p></section><article class="article markdown-body"><h1 id=challenge>Challenge</h1>
+<blockquote>
+<p>Submit the contents of flag.txt, found in USB storage on the device.</p>
+</blockquote>
+<h1 id=device>Device</h1>
+<p>Control4 Device</p>
+<p>Location: 192.168.10.174</p>
+<p>Port: A bunch</p>
+<p>Exploit: Default SSH credentials</p>
+<h1 id=getting-the-flag>Getting the flag</h1>
+<p>Look through USB devices. didn&rsquo;t find anything.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>~# <span class=nb>cd</span> /mnt/media/usb/
 /mnt/internal/usb# ls
-</code></pre></div><p>Looking for USB devices</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>~# dmesg <span class=p>|</span> grep usb 
+</code></pre></div><p>Looking for USB devices</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>~# dmesg <span class=p>|</span> grep usb 
 &lt;6&gt;<span class=o>[</span>42949373.260000<span class=o>]</span> usbcore: registered new interface driver usbfs
 &lt;6&gt;<span class=o>[</span>42949373.260000<span class=o>]</span> usbcore: registered new interface driver hub
 &lt;6&gt;<span class=o>[</span>42949373.260000<span class=o>]</span> usbcore: registered new device driver usb
@@ -29,7 +46,8 @@
 &lt;6&gt;<span class=o>[</span>42949375.180000<span class=o>]</span> usbcore: registered new interface driver usb-storage
 &lt;6&gt;<span class=o>[</span>42949375.200000<span class=o>]</span> usbcore: registered new interface driver libusual
 &lt;6&gt;<span class=o>[</span>42949441.010000<span class=o>]</span> usbcore: registered new interface driver zd1211b
-</code></pre></div><p>Looking at the mounted devices</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>/dev# mount
+</code></pre></div><p>Looking at the mounted devices</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>/dev# mount
 /dev/root on / <span class=nb>type</span> jffs2 <span class=o>(</span>ro<span class=o>)</span>
 /devfs on /dev <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>16k<span class=o>)</span>
 /proc on /proc <span class=nb>type</span> proc <span class=o>(</span>rw<span class=o>)</span>
@@ -48,7 +66,15 @@ none on /dev/pts <span class=nb>type</span> devpts <span class=o>(</span>rw,mode
 /dev/mtdblock5 on /mnt/internal/usb <span class=nb>type</span> jffs2 <span class=o>(</span>rw,noatime,nodiratime<span class=o>)</span>
 /tmp on /mnt/ram/tmp <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>16384k<span class=o>)</span>
 /var on /mnt/ram/var <span class=nb>type</span> tmpfs <span class=o>(</span>rw,size<span class=o>=</span>32768k<span class=o>)</span>
-</code></pre></div><p>We&rsquo;ve got a usb mounted as <code>/mnt/internal/usb</code>.</p><p>Take a look in there, and find nothing</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>~# ls /mnt/internal/usb/
-</code></pre></div><p>Run <code>find</code> to find flags</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>$ find /mnt/internal/www/ -name <span class=s2>&#34;Flag.txt&#34;</span>
+</code></pre></div><p>We&rsquo;ve got a usb mounted as <code>/mnt/internal/usb</code>.</p>
+<p>Take a look in there, and find nothing</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>~# ls /mnt/internal/usb/
+</code></pre></div><p>Run <code>find</code> to find flags</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>$ find /mnt/internal/www/ -name <span class=s2>&#34;Flag.txt&#34;</span>
 /mnt/internal/www/Flag.txt
-</code></pre></div><p><code>cat</code> and submit</p></article><section class="article labels"><a class=category href=/categories/iotvillage/>IotVillage</a><a class=tag href=/tags/control4/>Control4</a><a class=tag href=/tags/default-credentials/>Default Credentials</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/pivot-notes/><span class="iconfont icon-article"></span>Pivot Notes</a></p><p><a class=link href=/post/firmware-analysis/><span class="iconfont icon-article"></span>Firmware Analysis</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
+</code></pre></div><p><code>cat</code> and submit</p>
+</article><section class="article labels"><a class=category href=/categories/iotvillage/>IotVillage</a><a class=tag href=/tags/control4/>Control4</a><a class=tag href=/tags/default-credentials/>Default Credentials</a></section></div>
+<div class="article bottom"><section class="article navigation"><p><a class=link href=/post/pivot-notes/><span class="iconfont icon-article"></span>Pivot Notes</a></p><p><a class=link href=/post/firmware-analysis/><span class="iconfont icon-article"></span>Firmware Analysis</a></p></section></div></section><section id=footer><div class=footer-wrap>
+<p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p>
+<p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body>
+</html>

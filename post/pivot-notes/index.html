@@ -1,5 +1,11 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.83.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Pivot Notes&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.5c1ea3b7fda332bb26a6e796e568357472f1c94f2dfd03a45d32c45276f3bca768b134a0b11696b3e3b9f1f7f773fe2a.css integrity=sha384-XB6jt/2jMrsmpueW5Wg1dHLxyU8t/QOkXTLEUnbzvKdosTSgsRaWs+O58ff3c/4q><meta name=twitter:card content="summary"><meta name=twitter:title content="Pivot Notes"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
-<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Pivot Notes</h1><p class="article date">Sat, 01 May 2021 14:00:51</p></section><article class="article markdown-body"><p>When looking through the Control4 machine, we noticed that the IP address range it is on is <strong>not</strong> in the <code>192.168.10.0/24</code> subnet. It is actually in the <code>172.16.10.0/24</code> network.</p><div class=highlight><pre class=chroma><code class=language-txt data-lang=txt>ifconfig
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.87.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name=color-scheme content="light dark">
+<meta name=supported-color-schemes content="light dark"><title>Pivot Notes&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.5c1ea3b7fda332bb26a6e796e568357472f1c94f2dfd03a45d32c45276f3bca768b134a0b11696b3e3b9f1f7f773fe2a.css integrity=sha384-XB6jt/2jMrsmpueW5Wg1dHLxyU8t/QOkXTLEUnbzvKdosTSgsRaWs+O58ff3c/4q><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Pivot Notes"><body><section id=header>
+<div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header">
+<h1 class="article title">Pivot Notes</h1><p class="article date">Sat, 01 May 2021 14:00:51</p></section><article class="article markdown-body"><p>When looking through the Control4 machine, we noticed that the IP address range it is on is <strong>not</strong> in the <code>192.168.10.0/24</code> subnet. It is actually in the <code>172.16.10.0/24</code> network.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt>ifconfig
 eth0      Link encap:Ethernet  HWaddr 00:0F:FF:13:D6:1A
           inet addr:172.16.10.4  Bcast:172.16.10.255  Mask:255.255.255.0
           UP BROADCAST NOTRAILERS RUNNING ALLMULTI MULTICAST  MTU:1500  Metric:1
@@ -16,9 +22,18 @@ lo        Link encap:Local Loopback
           TX packets:80217 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0
           RX bytes:11367465 (10.8 MiB)  TX bytes:11367465 (10.8 MiB)
-</code></pre></div><p>We now need to figure out how to pivot to that network to take a look inside it.</p><h2 id=setting-up-proxy>Setting up Proxy</h2><p>Edit <code>/etc/proxychains.conf</code> in local machine.</p><p>We need to change the <code>socks4 127.0.0.1</code> port to <code>6022</code></p><p>Set up a reverse shell with a specific port</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>ssh -D <span class=m>6022</span> root@192.168.10.101
-</code></pre></div><p>Run a command:</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>proxychains nmap 172.16.10.0/24
-</code></pre></div><h2 id=getting-a-pivot-into-a-new-network>Getting a pivot into a new network</h2><p>It looks like the device we need to pivot to is the fortinet device.</p><p>After messing around on the device, we&rsquo;ve found some information.</p><div class=highlight><pre class=chroma><code class=language-txt data-lang=txt>FGT60C3G12011171 # ifconfig
+</code></pre></div><p>We now need to figure out how to pivot to that network to take a look inside it.</p>
+<h2 id=setting-up-proxy>Setting up Proxy</h2>
+<p>Edit <code>/etc/proxychains.conf</code> in local machine.</p>
+<p>We need to change the <code>socks4 127.0.0.1</code> port to <code>6022</code></p>
+<p>Set up a reverse shell with a specific port</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>ssh -D <span class=m>6022</span> root@192.168.10.101
+</code></pre></div><p>Run a command:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>proxychains nmap 172.16.10.0/24
+</code></pre></div><h2 id=getting-a-pivot-into-a-new-network>Getting a pivot into a new network</h2>
+<p>It looks like the device we need to pivot to is the fortinet device.</p>
+<p>After messing around on the device, we&rsquo;ve found some information.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt>FGT60C3G12011171 # ifconfig
 Unknown action 0
 
 FGT60C3G12011171 # sh
@@ -137,4 +152,8 @@ config system admin
                     set name &#34;Top Destinations&#34;
                 next
                 edit 4
-</code></pre></div></article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/pivot/>pivot</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/pihole/><span class="iconfont icon-article"></span>Pihole</a></p><p><a class=link href=/post/control4-flag-2/><span class="iconfont icon-article"></span>Control4 Flag 2</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
+</code></pre></div></article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/pivot/>pivot</a></section></div>
+<div class="article bottom"><section class="article navigation"><p><a class=link href=/post/pihole/><span class="iconfont icon-article"></span>Pihole</a></p><p><a class=link href=/post/control4-flag-2/><span class="iconfont icon-article"></span>Control4 Flag 2</a></p></section></div></section><section id=footer><div class=footer-wrap>
+<p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p>
+<p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body>
+</html>

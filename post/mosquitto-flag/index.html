@@ -1,8 +1,22 @@
-<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.83.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name=color-scheme content="light dark"><meta name=supported-color-schemes content="light dark"><title>Mosquitto Flag&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.5c1ea3b7fda332bb26a6e796e568357472f1c94f2dfd03a45d32c45276f3bca768b134a0b11696b3e3b9f1f7f773fe2a.css integrity=sha384-XB6jt/2jMrsmpueW5Wg1dHLxyU8t/QOkXTLEUnbzvKdosTSgsRaWs+O58ff3c/4q><meta name=twitter:card content="summary"><meta name=twitter:title content="Mosquitto Flag"><body><section id=header><div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
-<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header"><h1 class="article title">Mosquitto Flag</h1><p class="article date">Sat, 08 Aug 2020 11:19:07</p></section><article class="article markdown-body"><p>The hint for the flag was.</p><blockquote><p>See if you have the patience to scratch the itch; patience is key. Mosquitto bites are so annoying!
-Connect at: 209.97.159.20:1883 Creds: iot:iot</p></blockquote><p>We had a feeling that this had something to do with MQTT based off the mosquitto name. Searching for port <code>1883</code> confirmed this, as this is a standard port of MQTT.</p><p>We installed the mosquitto client using:</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>sudo apt install -y mosquitto-clients
-</code></pre></div><p>We then connected to the server using:</p><div class=highlight><pre class=chroma><code class=language-sh data-lang=sh>mosquitto_sub -h 209.97.159.20 -p <span class=m>1883</span> -u iot -P iot -t <span class=s2>&#34;#&#34;</span>
-</code></pre></div><p>The <code>#</code> topic is the standard wildcard topic, so that we can listen to all the topics on the server. From here, well, we waited.</p><p>When subscribed to all the topics, we were greeted with a message every second</p><div class=highlight><pre class=chroma><code class=language-txt data-lang=txt>Representative
+<!doctype html><html lang=en><meta charset=utf-8><meta name=generator content="Hugo 0.87.0"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name=color-scheme content="light dark">
+<meta name=supported-color-schemes content="light dark"><title>Mosquitto Flag&nbsp;&ndash;&nbsp;weslack</title><link rel=stylesheet href=/css/core.min.5c1ea3b7fda332bb26a6e796e568357472f1c94f2dfd03a45d32c45276f3bca768b134a0b11696b3e3b9f1f7f773fe2a.css integrity=sha384-XB6jt/2jMrsmpueW5Wg1dHLxyU8t/QOkXTLEUnbzvKdosTSgsRaWs+O58ff3c/4q><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Mosquitto Flag"><body><section id=header>
+<div class="header wrap"><span class="header left-side"><a class="site home" href=/><img class="site logo" src=/logo.png alt><span class="site name">weslack</span></a></span>
+<span class="header right-side"><div class="nav wrap"><nav class=nav><a class="nav item" href=/categories/>Categories</a><a class="nav item" href=/tags/>Tags</a><a class="nav item" href=/about/>About</a><a class="nav item" href=https://github%2ecom/weslack target=_blank>GitHub</a></nav></div></span></div><div class="site slogan"><span class=title>CTF Fun and Write Ups</span></div></section><section id=content><div class=article-container><section class="article header">
+<h1 class="article title">Mosquitto Flag</h1><p class="article date">Sat, 08 Aug 2020 11:19:07</p></section><article class="article markdown-body"><p>The hint for the flag was.</p>
+<blockquote>
+<p>See if you have the patience to scratch the itch; patience is key. Mosquitto bites are so annoying!
+Connect at: 209.97.159.20:1883 Creds: iot:iot</p>
+</blockquote>
+<p>We had a feeling that this had something to do with MQTT based off the mosquitto name. Searching for port <code>1883</code> confirmed this, as this is a standard port of MQTT.</p>
+<p>We installed the mosquitto client using:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>sudo apt install -y mosquitto-clients
+</code></pre></div><p>We then connected to the server using:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>mosquitto_sub -h 209.97.159.20 -p <span class=m>1883</span> -u iot -P iot -t <span class=s2>&#34;#&#34;</span>
+</code></pre></div><p>The <code>#</code> topic is the standard wildcard topic, so that we can listen to all the topics on the server. From here, well, we waited.</p>
+<p>When subscribed to all the topics, we were greeted with a message every second</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt>Representative
 Bruno
 Person
 Horses
@@ -20,4 +34,9 @@ Truck
 Look
 Crate
 ...
-</code></pre></div><p>After about 30 minutes, the flag was sent, and we got it.</p></article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/mqtt/>MQTT</a><a class=tag href=/tags/mosquitto/>mosquitto</a><a class=tag href=/tags/protocol/>protocol</a><a class=tag href=/tags/patience/>patience</a></section></div><div class="article bottom"><section class="article navigation"><p><a class=link href=/post/day2-port-scan-update/><span class="iconfont icon-article"></span>Day2 Port Scan Update</a></p><p><a class=link href=/post/fortinet-flag/><span class="iconfont icon-article"></span>Fortinet Flag</a></p></section></div></section><section id=footer><div class=footer-wrap><p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p><p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body></html>
+</code></pre></div><p>After about 30 minutes, the flag was sent, and we got it.</p>
+</article><section class="article labels"><a class=category href=/categories/sohoplessly-broken/>SOHOplessly Broken</a><a class=tag href=/tags/mqtt/>MQTT</a><a class=tag href=/tags/mosquitto/>mosquitto</a><a class=tag href=/tags/protocol/>protocol</a><a class=tag href=/tags/patience/>patience</a></section></div>
+<div class="article bottom"><section class="article navigation"><p><a class=link href=/post/day2-port-scan-update/><span class="iconfont icon-article"></span>Day2 Port Scan Update</a></p><p><a class=link href=/post/fortinet-flag/><span class="iconfont icon-article"></span>Fortinet Flag</a></p></section></div></section><section id=footer><div class=footer-wrap>
+<p class=copyright>All content is free, unencumbered, and released into the public domain. Do with it what you want. <a href=/LICENSE.txt>Unlicense</a></p>
+<p class=powerby><span>Powered&nbsp;by&nbsp;</span><a href=https://gohugo.io target=_blank>Hugo</a><span>&nbsp;&&nbsp;</span><a href=https://themes.gohugo.io/hugo-notepadium/ target=_blank>Notepadium</a></p></div></section></body>
+</html>
